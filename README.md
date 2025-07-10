@@ -72,11 +72,10 @@
 streamlit run app.py
 ```
 위 명령어 하나만 실행하면 웹 애플리케이션이 실행됩니다. 폼에 개발 계획을 입력하고 '저장하기' 버튼을 누르면 `data/data.json` 파일이 생성/갱신됩니다.
-```
 
 ### 2) 리포터 - 독립적인 데이터 수집기
 
-> UI 없이 순수하게 시스템 정보 데이터(`data.json`)만 생성하고 싶을 때 사용합니다.
+> UI 없이 순수하게 시스템 정보 데이터만 생성하고 싶을 때 사용합니다.
 
 `reporter.py`를 직접 실행하면 시스템 정보를 수집하여 터미널에 JSON 형태로 출력합니다.
 
@@ -85,27 +84,23 @@ streamlit run app.py
 # (가상환경 활성화 후)
 python reporter.py
 ```
-
----
+수집된 정보가 터미널에 출력됩니다. (출력 리디렉션을 사용하여 파일로 저장할 수 있습니다: `python reporter.py > my_report.json`)
 
 ### 3) CLI - 순수 터미널 환경용 스크립트
 
 > Python이나 GUI 환경이 없는 원격 서버 등 순수 CLI 환경에서 시스템 정보를 확인하고 싶을 때 사용합니다.
 
-**Linux / macOS 용 쉘 스크립트:**
-*   **시스템 정보 수집**:
+*   **시스템 정보 수집 (Linux / macOS):**
     ```bash
     chmod +x get_system_info.sh
     ./get_system_info.sh
-    # -> system_info.md 파일이 생성됩니다. (이 파일은 .gitignore에 의해 추적되지 않습니다)
+    # -> system_info.md 파일이 생성됩니다.
     ```
-*   **Python 환경 정보 수집**:
+*   **Python 환경 정보 수집 (Linux / macOS):**
     ```bash
     # (1) get_python_env.sh 파일의 PYTHON_EXEC_PATH 변수에 분석할 경로를 입력합니다.
     # (2) 스크립트를 실행합니다.
     chmod +x get_python_env.sh
     ./get_python_env.sh
-    # -> python_env_info.md 파일이 생성됩니다. (이 파일은 .gitignore에 의해 추적되지 않습니다)
+    # -> python_env_info.md 파일이 생성됩니다.
     ```
-
----
