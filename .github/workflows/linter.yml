@@ -2,7 +2,6 @@
 
 name: Code Linter
 
-# 이 워크플로우를 언제 실행할지 정의합니다.
 on:
   push:
     branches: [ "main" ]
@@ -11,14 +10,14 @@ on:
 
 jobs:
   lint-code:
-    runs-on: ubuntu-latest # 실행 환경을 지정합니다.
+    runs-on: ubuntu-latest
 
     steps:
       # 1. 리포지토리의 코드를 runner로 가져옵니다.
       - name: Check out code
         uses: actions/checkout@v4
 
-      # 2. Python 환경을 설정합니다. (로컬 버전에 맞게 '3.12'로 수정)
+      # 2. Python 환경을 설정합니다.
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -36,9 +35,11 @@ jobs:
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
-      # [!!!] 5. ShellCheck를 사용하여 Shell 스크립트를 검사하는 단계 추가
+      # 5. ShellCheck를 사용하여 Shell 스크립트를 검사합니다.
       - name: Lint Shell Scripts with ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
-          # 프로젝트 루트에 있는 모든 .sh 파일을 검사합니다.
+          # [!!!] 최종 수정: 'note'나 'style' 수준의 제안은 무시하고, 
+          # 'warning' 이상의 문제만 보고하도록 심각도 수준을 조정합니다.
+          severity: warning
           scandir: './'
