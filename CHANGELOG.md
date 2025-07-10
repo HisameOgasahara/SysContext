@@ -8,9 +8,21 @@
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-07-10
+
 ### Added
-- `reporter.py`에 특정 경로의 Python 환경 분석 기능 추가.
-- `app.py`에 `reporter.py` 자동 실행 기능 추가.
+- OS(Windows/Unix)에 따른 코드 생성 가이드(`llm_instruction_for_code_generation`)를 `data.json`에 추가.
+- 네트워크 정보(IP, MAC 주소 등)를 마스킹하는 기능 추가.
+- 최종 `data.json` 내용을 영문/한글 키 버전으로 나누어 볼 수 있는 탭 기능 구현.
+- 배포 대상 옵션에 `Cloudflare Tunnel`, `Hugging Face Spaces` 추가 및 순서 조정.
+- `st.session_state`를 도입하여 폼 제출 후 UI 상태가 즉시 반영되도록 개선.
+
+### Changed
+- `useCI` 체크박스를 제거하고 CI 도구 선택 `selectbox`에 `None` 옵션을 추가하여 UI를 간소화.
+- `app.py`가 `reporter.py`를 내부적으로 호출하고 모든 인터페이스를 관리하도록 메인 로직을 통합.
+- `README.md` 내용을 `streamlit` 기반의 GUI 사용법 중심으로 전면 개편.
+- 생성되는 데이터 파일 경로를 `data/data.json`으로 표준화.
+- `pandas` 라이브러리 의존성 제거.
 
 ## [1.0.0] - 2025-07-10
 

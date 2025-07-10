@@ -3,8 +3,7 @@
 # Core UI Framework
 streamlit
 
-# Data Handling & System Info
-pandas
+# System Info
 psutil
 pynvml
 py-cpuinfo
