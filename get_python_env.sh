@@ -11,36 +11,39 @@ PYTHON_EXEC_PATH=""
 
 OUTPUT_FILE="python_env_info.md"
 
-# 경로가 비어있는지 확인
 if [ -z "$PYTHON_EXEC_PATH" ]; then
-    echo "❌ 오류: 스크립트의 PYTHON_EXEC_PATH 변수에 파이썬 실행 파일 경로를 입력해야 합니다."
+    echo "❌ 오류: 스크립트의 PYTHON_EXEC_PATH 변수에 파이썬 실행 파일 경로를 입력해야 합니다." >&2
     exit 1
 fi
 
-# 파일이 존재하는지 확인
 if [ ! -f "$PYTHON_EXEC_PATH" ]; then
-    echo "❌ 오류: '$PYTHON_EXEC_PATH' 경로에 파일이 존재하지 않습니다."
+    echo "❌ 오류: '$PYTHON_EXEC_PATH' 경로에 파일이 존재하지 않습니다." >&2
     exit 1
 fi
 
-# 파일 초기화
-> "$OUTPUT_FILE"
+# [수정] 'true' 명령어를 사용하여 파일을 명확하게 초기화합니다.
+true > "$OUTPUT_FILE"
 
-echo "## 🐍 Python 환경 정보" >> "$OUTPUT_FILE"
-echo "---" >> "$OUTPUT_FILE"
-echo "- **분석 대상 경로**: \`$PYTHON_EXEC_PATH\`" >> "$OUTPUT_FILE"
-echo "" >> "$OUTPUT_FILE"
+# [수정] 여러 echo 명령어를 블록으로 묶어 파일에 한 번만 쓰도록 합니다.
+{
+    echo "## 🐍 Python 환경 정보"
+    echo "---"
+    echo "- **분석 대상 경로**: \`$PYTHON_EXEC_PATH\`"
+    echo ""
+    echo "### Python 버전"
+    echo "\`\`\`"
+} >> "$OUTPUT_FILE"
 
-# Python 버전
-echo "### Python 버전" >> "$OUTPUT_FILE"
-echo "\`\`\`" >> "$OUTPUT_FILE"
+# 명령어 결과는 별도로 리디렉션합니다.
 "$PYTHON_EXEC_PATH" --version >> "$OUTPUT_FILE" 2>&1
-echo "\`\`\`" >> "$OUTPUT_FILE"
-echo "" >> "$OUTPUT_FILE"
 
-# 설치된 라이브러리 목록
-echo "### 설치된 라이브러리 (pip freeze)" >> "$OUTPUT_FILE"
-echo "\`\`\`" >> "$OUTPUT_FILE"
+{
+    echo "\`\`\`"
+    echo ""
+    echo "### 설치된 라이브러리 (pip freeze)"
+    echo "\`\`\`"
+} >> "$OUTPUT_FILE"
+
 "$PYTHON_EXEC_PATH" -m pip freeze >> "$OUTPUT_FILE" 2>&1
 echo "\`\`\`" >> "$OUTPUT_FILE"
 

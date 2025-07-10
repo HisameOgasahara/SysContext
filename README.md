@@ -50,12 +50,12 @@
 
 ### ⚠️ 중요: 보안 유의사항
 
-이 도구는 실행 시 사용자의 시스템 정보를 담은 `data.json` 파일을 생성합니다. 이 파일에는 IP 주소, 컴퓨터 이름 등 민감할 수 있는 정보가 포함됩니다.
+이 도구는 실행 시 사용자의 시스템 정보를 담은 리포트 파일들(**`data.json`**, **`system_info.md`** 등)을 생성합니다. 이 파일들에는 IP 주소, 컴퓨터 이름 등 민감할 수 있는 정보가 포함됩니다.
 
-**`.gitignore` 파일에 `data.json`이 기본적으로 등록되어 있어, 실수로 GitHub에 업로드되는 것을 방지합니다.**
+**`.gitignore` 파일에 이러한 생성 파일들이 기본적으로 등록되어 있어, 실수로 GitHub에 업로드되는 것을 방지합니다.**
 
-- **절대로 `.gitignore` 파일에서 `data.json` 항목을 삭제하지 마세요.**
-- 만약 이 프로젝트를 포크(Fork)하거나 직접 관리할 경우, `data.json` 파일이 공개되지 않도록 항상 주의하십시오.
+- **절대로 `.gitignore` 파일에서 이 항목들을 삭제하지 마세요.**
+- 만약 이 프로젝트를 포크(Fork)하거나 직접 관리할 경우, 생성된 리포트 파일들이 공개되지 않도록 항상 주의하십시오.
 
 ---
 
@@ -98,14 +98,15 @@ python reporter.py
     ```bash
     chmod +x get_system_info.sh
     ./get_system_info.sh
-    # -> system_info.md 파일이 생성됩니다.
+    # -> system_info.md 파일이 생성됩니다. (이 파일은 .gitignore에 의해 추적되지 않습니다)
     ```
 *   **Python 환경 정보 수집**:
     ```bash
     # (1) get_python_env.sh 파일의 PYTHON_EXEC_PATH 변수에 분석할 경로를 입력합니다.
     # (2) 스크립트를 실행합니다.
     chmod +x get_python_env.sh
-    # -> python_env_info.md 파일이 생성됩니다.
+    ./get_python_env.sh
+    # -> python_env_info.md 파일이 생성됩니다. (이 파일은 .gitignore에 의해 추적되지 않습니다)
     ```
 
 ---
