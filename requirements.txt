@@ -1,0 +1,10 @@
+# requirements.txt
+
+# Core UI Framework
+streamlit
+
+# Data Handling & System Info
+pandas
+psutil
+pynvml
+py-cpuinfo
