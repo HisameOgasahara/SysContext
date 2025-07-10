@@ -1,0 +1,44 @@
+# .github/workflows/linter.yml
+
+name: Code Linter
+
+# 이 워크플로우를 언제 실행할지 정의합니다.
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lint-code:
+    runs-on: ubuntu-latest # 실행 환경을 지정합니다.
+
+    steps:
+      # 1. 리포지토리의 코드를 runner로 가져옵니다.
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # 2. Python 환경을 설정합니다. (로컬 버전에 맞게 '3.12'로 수정)
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      # 3. Python 관련 라이브러리와 linter를 설치합니다.
+      - name: Install Python dependencies and linters
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8
+
+      # 4. flake8을 사용하여 Python 코드를 검사합니다.
+      - name: Lint Python with flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      # [!!!] 5. ShellCheck를 사용하여 Shell 스크립트를 검사하는 단계 추가
+      - name: Lint Shell Scripts with ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          # 프로젝트 루트에 있는 모든 .sh 파일을 검사합니다.
+          scandir: './'
